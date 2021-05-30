@@ -8,8 +8,9 @@ const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => time < 10 ? `0${time}` : time;
 
 export const Countdown = ({
-    minutes = 20,
+    minutes = 0.1,
     isPaused,
+    onProgress
 }) => {
     const interval = React.useRef(null);
 
@@ -19,14 +20,20 @@ export const Countdown = ({
                 return time;
             }
             const timeLeft = time - 1000;
+            onProgress(timeLeft / minutesToMillis(minutes))
             return timeLeft;
         })
     }
+
+    useEffect(() => {
+        setMillis(minutesToMillis(minutes))
+    }, [minutes])
 
     const [millis, setMillis] = useState(minutesToMillis(minutes));
 
     useEffect(() => {
         if(isPaused) {
+            if(interval.current) clearInterval(interval.current);
             return;
         }
         interval.current = setInterval(countDown, 1000);
