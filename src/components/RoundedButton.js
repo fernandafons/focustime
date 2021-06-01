@@ -26,10 +26,11 @@ StyleSheet.create({
     alignItems: 'center',
     justifyContent: "center",
     borderColor: '#fff',
-    borderWidth: 2
+    borderWidth: 2,
+    margin: 20
   },
   text: {
     color: "#fff",
-    fontSize: size/3
+    fontSize: size/4
   }
 })
